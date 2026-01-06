@@ -1,5 +1,5 @@
 import axios from 'axios';
 
 export const axiosInstance = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_WORDPRESS_URL,
+  baseURL: 'http://alatkesehatan.test',
 });
