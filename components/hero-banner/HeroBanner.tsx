@@ -7,7 +7,7 @@ import { Card } from '../ui/card';
 import { Badge } from '../ui/badge';
 import { Button } from '../ui/button';
 
-export default function HeroBanner() {
+export function HeroBanner() {
   return (
     <section className='w-full max-w-(--breakpoint-xl) mx-auto'>
       <Card className='p-0'>
@@ -39,7 +39,7 @@ export default function HeroBanner() {
               priority
               fetchPriority='high'
               sizes='(max-width: 768px) 90vw, 378px'
-              quality={60}
+              quality={75}
               className='object-contain transition-transform duration-300 ease-in-out md:hover:scale-105'
             />
           </div>
