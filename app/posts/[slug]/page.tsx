@@ -3,6 +3,7 @@ import {
   getFeaturedMediaById,
   getAuthorById,
   getCategoryById,
+  getAllPostSlugs,
 } from '@/lib/wordpress';
 import { generateContentMetadata, stripHtml } from '@/lib/metadata';
 
@@ -13,17 +14,24 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import { Article, Container, Prose, Section } from '@/components/common/Craft';
+import { Button } from '@/components/ui/button';
+import { ArrowLeft } from 'lucide-react';
 
-export const dynamic = 'force-dynamic';
+export async function generateStaticParams() {
+  return await getAllPostSlugs();
+}
 
 export async function generateMetadata({
   params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
-  const post = await getPostBySlug(params.slug);
+  const { slug } = await params;
+  const post = await getPostBySlug(slug);
 
-  if (!post) return {};
+  if (!post) {
+    return {};
+  }
 
   return generateContentMetadata({
     title: post.title.rendered,
@@ -33,28 +41,36 @@ export async function generateMetadata({
   });
 }
 
-export default async function Page({ params }: { params: { slug: string } }) {
-  const post = await getPostBySlug(params.slug);
+export default async function Page({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params;
+  const post = await getPostBySlug(slug);
 
   if (!post) {
     notFound();
   }
 
-  const [featuredMedia, author, category] = await Promise.all([
-    post.featured_media ? getFeaturedMediaById(post.featured_media) : null,
-    getAuthorById(post.author),
-    getCategoryById(post.categories[0]),
-  ]);
-
-  const date = new Date(post.date).toLocaleDateString('id-ID', {
-    day: 'numeric',
+  const featuredMedia = post.featured_media
+    ? await getFeaturedMediaById(post.featured_media)
+    : null;
+  const author = await getAuthorById(post.author);
+  const date = new Date(post.date).toLocaleDateString('en-US', {
     month: 'long',
+    day: 'numeric',
     year: 'numeric',
   });
+  const category = await getCategoryById(post.categories[0]);
 
   return (
     <Section>
       <Container>
+        <Button className='mb-5'>
+          <ArrowLeft />
+          <Link href='/posts'>Kembali</Link>
+        </Button>
         <Prose>
           <h1>
             <span
@@ -82,7 +98,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
             </Link>
           </div>
           {featuredMedia?.source_url && (
-            <div className='h-96 my-12 md:h-125 overflow-hidden flex items-center justify-center border rounded-lg bg-accent/25'>
+            <div className='h-96 my-12 md:h-[500px] overflow-hidden flex items-center justify-center border rounded-lg bg-accent/25'>
               {/* eslint-disable-next-line */}
               <img
                 className='w-full h-full object-cover'

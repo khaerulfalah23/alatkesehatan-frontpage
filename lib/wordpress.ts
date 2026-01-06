@@ -476,4 +476,4 @@ export async function getPostsByAuthorPaginated(
   });
 }
 
-export { WordPressAPIError, type Post };
+export { WordPressAPIError };
