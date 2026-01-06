@@ -5,7 +5,7 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'tubesettlerlamella.com',
+        hostname: '**',
       },
     ],
   },

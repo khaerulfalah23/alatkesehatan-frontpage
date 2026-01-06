@@ -5,7 +5,7 @@ import {
   getCategoryById,
   getAllPostSlugs,
 } from '@/lib/wordpress';
-import { generateContentMetadata, stripHtml } from '@/lib/metadata';
+import { stripHtml } from '@/lib/metadata';
 
 import { badgeVariants } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
@@ -16,6 +16,7 @@ import type { Metadata } from 'next';
 import { Article, Container, Prose, Section } from '@/components/common/Craft';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft } from 'lucide-react';
+import { siteConfig } from '@/types';
 
 export async function generateStaticParams() {
   return await getAllPostSlugs();
@@ -24,21 +25,52 @@ export async function generateStaticParams() {
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: { slug: string };
 }): Promise<Metadata> {
-  const { slug } = await params;
-  const post = await getPostBySlug(slug);
+  const post = await getPostBySlug(params.slug);
 
-  if (!post) {
-    return {};
+  if (!post) return {};
+
+  let ogImage: string | undefined;
+
+  if (post.featured_media) {
+    try {
+      const media = await getFeaturedMediaById(post.featured_media);
+      ogImage = media?.source_url;
+    } catch {
+      ogImage = undefined;
+    }
   }
 
-  return generateContentMetadata({
-    title: post.title.rendered,
-    description: stripHtml(post.excerpt.rendered),
-    slug: post.slug,
-    basePath: 'posts',
-  });
+  const title = post.title.rendered;
+  const description = stripHtml(post.excerpt.rendered);
+
+  return {
+    title,
+    description,
+    openGraph: {
+      type: 'article',
+      title,
+      description,
+      url: `${siteConfig.site_domain}/posts/${post.slug}`,
+      images: ogImage
+        ? [
+            {
+              url: ogImage,
+              width: 1200,
+              height: 630,
+              alt: title,
+            },
+          ]
+        : [],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: ogImage ? [ogImage] : [],
+    },
+  };
 }
 
 export default async function Page({
@@ -98,7 +130,7 @@ export default async function Page({
             </Link>
           </div>
           {featuredMedia?.source_url && (
-            <div className='h-96 my-12 md:h-[500px] overflow-hidden flex items-center justify-center border rounded-lg bg-accent/25'>
+            <div className='h-96 my-12 md:h-125 overflow-hidden flex items-center justify-center border rounded-lg bg-accent/25'>
               {/* eslint-disable-next-line */}
               <img
                 className='w-full h-full object-cover'
