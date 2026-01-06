@@ -63,3 +63,8 @@ export interface Author {
 export interface Tag extends Taxonomy {
   taxonomy: 'post_tag';
 }
+
+export interface Category extends Taxonomy {
+  taxonomy: 'category';
+  parent: number;
+}

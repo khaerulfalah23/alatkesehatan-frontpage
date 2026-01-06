@@ -122,6 +122,10 @@ const baseTypographyStyles = [
   ...styles.typography.misc,
 ];
 
+const articleTypographyStyles = [
+  ...baseTypographyStyles,
+  ...styles.typography.headerSpacing,
+];
 export const Section = ({ children, className, id }: BaseProps) => (
   <section className={cn(styles.layout.section, className)} id={id}>
     {children}
@@ -132,6 +136,26 @@ export const Container = ({ children, className, id }: BaseProps) => (
   <div className={cn(styles.layout.container, className)} id={id}>
     {children}
   </div>
+);
+
+export const Article = ({
+  children,
+  className,
+  id,
+  dangerouslySetInnerHTML,
+}: BaseProps & HTMLProps) => (
+  <article
+    dangerouslySetInnerHTML={dangerouslySetInnerHTML}
+    className={cn(
+      articleTypographyStyles,
+      styles.layout.spacing,
+      styles.layout.article,
+      className
+    )}
+    id={id}
+  >
+    {children}
+  </article>
 );
 
 export const Prose = ({
