@@ -1,5 +1,5 @@
 import axios from 'axios';
 
 export const axiosInstance = axios.create({
-  baseURL: 'http://alatkesehatan.test',
+  baseURL: 'https://slategray-hawk-192959.hostingersite.com',
 });
