@@ -13,7 +13,7 @@ import type {
 } from './wordpress.d';
 
 // Single source of truth for WordPress configuration
-const baseUrl = 'https://slategray-hawk-192959.hostingersite.com';
+const baseUrl = 'https://tubesettlerlamella.com';
 const isConfigured = Boolean(baseUrl);
 
 if (!isConfigured) {
