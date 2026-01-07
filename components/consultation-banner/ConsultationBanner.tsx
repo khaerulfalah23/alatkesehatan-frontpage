@@ -4,7 +4,7 @@ import { Badge } from '../ui/badge';
 import { Button } from '../ui/button';
 import { consultationData } from './data';
 
-export default function ConsultationBanner() {
+export function ConsultationBanner() {
   return (
     <section className='w-full max-w-(--breakpoint-xl) mx-auto py-0 md:py-24'>
       <div className='flex flex-col md:flex-row items-center'>

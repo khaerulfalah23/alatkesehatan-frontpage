@@ -2,6 +2,7 @@ import './globals.css';
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import { Navbar } from '@/components/common/navbar/Navbar';
+import { Footer } from '@/components/common/Footer';
 import { ThemeProvider } from '@/components/features/theme/ThemeProvider';
 import { ReactQueryClientProvider } from '@/providers';
 
@@ -39,6 +40,7 @@ export default function RootLayout({
           >
             <Navbar />
             <main>{children}</main>
+            <Footer />
           </ThemeProvider>
         </ReactQueryClientProvider>
       </body>

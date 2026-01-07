@@ -20,7 +20,7 @@ export default function ProductPrice({
             />
           )}
         </div>
-        <p className='text-gray-500'>{label}</p>
+        <p className='text-muted-foreground'>{label}</p>
       </div>
     </div>
   );

@@ -25,10 +25,10 @@ export async function ProductList() {
   return (
     <>
       <div className='py-5'>
-        <h2 className='text-2xl font-semibold text-gray-600'>
+        <h2 className='text-2xl font-semibold'>
           Produk Alat Kesehatan <span className=' text-lightBlue'>Terbaru</span>
         </h2>
-        <p className='text-sm text-gray-500 font-thin'>
+        <p className='text-sm text-muted-foreground'>
           Temukan solusi kesehatan terbaik untuk kebutuhan Anda.
         </p>
       </div>

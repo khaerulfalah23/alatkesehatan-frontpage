@@ -29,7 +29,9 @@ export default function ProductCard({ product }: { product: Product }) {
       </div>
       <div className='p-5 flex flex-col gap-2'>
         <div className='flex items-center justify-between'>
-          <p className='text-gray-500 font-medium'>Category</p>
+          <p className='text-muted-foreground font-medium'>
+            {(product.categories || [{}])[0]?.name}
+          </p>
           <div className='text-lightText flex items-center gap-1'>
             {Array.from({ length: 5 }).map((_, index) => {
               const isLastStar = index === 4;
@@ -46,7 +48,7 @@ export default function ProductCard({ product }: { product: Product }) {
             })}
           </div>
         </div>
-        <p className='text-base text-gray-600 tracking-wide font-semibold line-clamp-1 capitalize'>
+        <p className='text-base tracking-wide font-semibold line-clamp-1 capitalize'>
           {product?.name}
         </p>
         <ProductPrice

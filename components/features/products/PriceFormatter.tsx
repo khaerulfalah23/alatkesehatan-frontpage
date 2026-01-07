@@ -8,7 +8,12 @@ export default function PriceFormatter({ amount, className }: PriceFormatter) {
     minimumFractionDigits: 0,
   });
   return (
-    <span className={twMerge('text-sm font-semibold text-darkText', className)}>
+    <span
+      className={twMerge(
+        'text-sm font-semibold text-muted-foreground',
+        className
+      )}
+    >
       {' '}
       {formattedPrice}{' '}
     </span>
