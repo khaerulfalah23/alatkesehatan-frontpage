@@ -8,6 +8,7 @@ const nextConfig: NextConfig = {
         hostname: '**',
       },
     ],
+    qualities: [70, 75],
   },
 };
 
