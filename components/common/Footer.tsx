@@ -8,11 +8,9 @@ export function Footer() {
     <div className='bg-lightBg text-sm'>
       <Container className='py-5'>
         <footer className='flex items-center justify-between'>
-          <p className='text-gray-500'>
+          <p className='text-muted-foreground'>
             Hak Cipta © {currentYear}{' '}
-            <span className='text-darkBlue font-semibold'>
-              PT.Hefram Asasta Indonesia.
-            </span>
+            <span className='font-semibold'>PT.Hefram Asasta Indonesia.</span>
           </p>
           <Image src={payment} alt='payment' className='w-64 object-cover' />
         </footer>
