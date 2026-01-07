@@ -6,6 +6,7 @@ import {
   getAllPostSlugs,
 } from '@/lib/wordpress';
 import { stripHtml } from '@/lib/metadata';
+import Image from 'next/image';
 
 import { badgeVariants } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
@@ -25,9 +26,10 @@ export async function generateStaticParams() {
 export async function generateMetadata({
   params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }> | { slug: string };
 }): Promise<Metadata> {
-  const post = await getPostBySlug(params.slug);
+  const resolved = await params;
+  const post = await getPostBySlug(resolved.slug);
 
   if (!post) return {};
 
@@ -76,10 +78,10 @@ export async function generateMetadata({
 export default async function Page({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ slug: string }> | { slug: string };
 }) {
-  const { slug } = await params;
-  const post = await getPostBySlug(slug);
+  const resolved = await params;
+  const post = await getPostBySlug(resolved.slug);
 
   if (!post) {
     notFound();
@@ -99,16 +101,18 @@ export default async function Page({
   return (
     <Section>
       <Container>
-        <Button className='mb-5'>
-          <ArrowLeft />
-          <Link href='/posts'>Kembali</Link>
+        <Button className='mb-5' asChild>
+          <Link href='/posts'>
+            <ArrowLeft />
+            Kembali
+          </Link>
         </Button>
+
         <Prose>
           <h1>
-            <span
-              dangerouslySetInnerHTML={{ __html: post.title.rendered }}
-            ></span>
+            <span dangerouslySetInnerHTML={{ __html: post.title.rendered }} />
           </h1>
+
           <div className='flex justify-between items-center gap-4 text-sm mb-4'>
             <h5>
               Published {date} by{' '}
@@ -129,15 +133,18 @@ export default async function Page({
               {category.name}
             </Link>
           </div>
+
           {featuredMedia?.source_url && (
-            <div className='h-96 my-12 md:h-125 overflow-hidden flex items-center justify-center border rounded-lg bg-accent/25'>
-              {/* eslint-disable-next-line */}
-              <img
-                className='w-full h-full object-cover'
-                src={featuredMedia.source_url}
-                alt={post.title.rendered}
-              />
-            </div>
+            <Image
+              src={featuredMedia.source_url}
+              alt={post.title.rendered}
+              width={1200}
+              height={675}
+              priority
+              quality={75}
+              sizes='100vw'
+              className='w-full h-auto rounded-lg object-cover'
+            />
           )}
         </Prose>
 
