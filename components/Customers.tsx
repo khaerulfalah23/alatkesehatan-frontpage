@@ -54,7 +54,7 @@ const logos = [
 
 export function Customers() {
   return (
-    <div className='group relative m-auto max-w-6xl my-5 px-6'>
+    <div className='group relative m-auto max-w-6xl my-5 px-6 overflow-x-hidden'>
       <div className='flex flex-col items-center md:flex-row'>
         <div className='md:max-w-44 md:border-r md:pr-6'>
           <p className='text-end text-sm'>Dipercaya oleh pelanggan kami</p>
