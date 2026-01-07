@@ -5,10 +5,10 @@ import { Container } from './Craft';
 export function Footer() {
   const currentYear = new Date().getFullYear();
   return (
-    <div className='bg-lightBg text-sm'>
+    <div className='border-t text-sm'>
       <Container className='py-5'>
         <footer className='flex items-center justify-between'>
-          <p className='text-muted-foreground'>
+          <p>
             Hak Cipta © {currentYear}{' '}
             <span className='font-semibold'>PT.Hefram Asasta Indonesia.</span>
           </p>
