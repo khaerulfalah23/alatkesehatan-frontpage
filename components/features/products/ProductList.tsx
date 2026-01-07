@@ -26,10 +26,10 @@ export async function ProductList() {
     <>
       <div className='py-5'>
         <h2 className='text-2xl font-semibold text-gray-600'>
-          Day of the <span className=' text-lightBlue'>Deal</span>
+          Produk Alat Kesehatan <span className=' text-lightBlue'>Terbaru</span>
         </h2>
         <p className='text-sm text-gray-500 font-thin'>
-          Don&rsquo;t wait. The time will never be just right.
+          Temukan solusi kesehatan terbaik untuk kebutuhan Anda.
         </p>
       </div>
       <ProductGrid products={products} />
