@@ -9,5 +9,5 @@ export const heroData: HeroItem = {
   highlight: 'kursi roda',
   afterHighlight: 'standar & lipat',
   cta: 'Lihat Kursi Roda',
-  imageSrc: '/hero-banner.webp',
+  imageSrc: '/hero-banner.avif',
 };
