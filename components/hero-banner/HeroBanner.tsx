@@ -39,7 +39,7 @@ export function HeroBanner() {
               priority
               fetchPriority='high'
               sizes='(max-width: 768px) 90vw, 378px'
-              quality={60}
+              quality={50}
               className='object-contain transition-transform duration-300 ease-in-out md:hover:scale-105'
             />
           </div>
