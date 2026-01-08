@@ -99,7 +99,7 @@ export default async function Page({
   const category = await getCategoryById(post.categories[0]);
 
   return (
-    <Section>
+    <Section className='max-w-3xl mx-auto py-2 md:py-4'>
       <Container>
         <Button className='mb-5' asChild>
           <Link href='/posts'>
