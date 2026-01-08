@@ -5,22 +5,22 @@ import { Facebook, Instagram, Twitter, Youtube } from 'lucide-react';
 const SOCIAL_ITEMS = [
   {
     label: 'Facebook',
-    href: 'https://facebook.com/acara',
+    href: '/',
     icon: <Facebook />,
   },
   {
     label: 'Instagram',
-    href: 'https://instagram.com/@acara',
+    href: '/',
     icon: <Instagram />,
   },
   {
     label: 'Twitter',
-    href: 'https://twitter.com/@acara',
+    href: '/',
     icon: <Twitter />,
   },
   {
     label: 'YouTube',
-    href: 'https://youtube.com/@acara',
+    href: '/',
     icon: <Youtube />,
   },
 ];
