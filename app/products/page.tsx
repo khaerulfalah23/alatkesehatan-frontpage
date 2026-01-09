@@ -1,7 +1,10 @@
+import { ProductPage } from '@/components/features/products/ProductPage';
+import { Suspense } from 'react';
+
 export default function Product() {
   return (
-    <div>
-      <h1>Product</h1>
-    </div>
+    <Suspense>
+      <ProductPage />
+    </Suspense>
   );
 }

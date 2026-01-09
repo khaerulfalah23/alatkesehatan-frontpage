@@ -1,6 +1,7 @@
 'use client';
 
 import { useRouter, useSearchParams, usePathname } from 'next/navigation';
+
 import {
   Select,
   SelectContent,
@@ -9,25 +10,25 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Button } from '@/components/ui/button';
-import { Author, Category, Tag } from '@/types';
 
-interface FilterPostsProps {
-  authors: Author[];
-  tags: Tag[];
-  categories: Category[];
-  selectedAuthor?: string;
-  selectedTag?: string;
+import {
+  ProductCategory,
+  ProductTag,
+} from '@/hooks/products/useFetchProductFilters';
+
+interface FilterProductsProps {
+  categories: ProductCategory[];
   selectedCategory?: string;
+  tags: ProductTag[];
+  selectedTag?: string;
 }
 
-export function FilterPosts({
-  authors,
-  tags,
+export function FilterProducts({
   categories,
-  selectedAuthor,
-  selectedTag,
   selectedCategory,
-}: FilterPostsProps) {
+  tags,
+  selectedTag,
+}: FilterProductsProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const pathname = usePathname();
@@ -47,35 +48,11 @@ export function FilterPosts({
     router.push(pathname);
   };
 
-  const hasTags = tags.length > 0;
   const hasCategories = categories.length > 0;
-  const hasAuthors = authors.length > 0;
+  const hasTags = tags.length > 0;
 
   return (
-    <div className='grid grid-cols-1 md:grid-cols-[1fr_1fr_1fr_auto] gap-3 my-4 w-full items-end'>
-      {/* Tags */}
-      <Select
-        value={selectedTag || 'all'}
-        onValueChange={(value) => handleFilterChange('tag', value)}
-      >
-        <SelectTrigger className='w-full cursor-pointer' disabled={!hasTags}>
-          {hasTags ? <SelectValue placeholder='All Tags' /> : 'No tags found'}
-        </SelectTrigger>
-        <SelectContent>
-          <SelectItem value='all'>All Tags</SelectItem>
-          {tags.map((tag) => (
-            <SelectItem
-              className='cursor-pointer'
-              key={tag.id}
-              value={tag.id.toString()}
-            >
-              {tag.name}
-            </SelectItem>
-          ))}
-        </SelectContent>
-      </Select>
-
-      {/* Categories */}
+    <>
       <Select
         value={selectedCategory || 'all'}
         onValueChange={(value) => handleFilterChange('category', value)}
@@ -91,7 +68,7 @@ export function FilterPosts({
           )}
         </SelectTrigger>
         <SelectContent>
-          <SelectItem value='all'>All Categories</SelectItem>
+          <SelectItem value='all'>Semua Kategori</SelectItem>
           {categories.map((category) => (
             <SelectItem
               className='cursor-pointer'
@@ -103,33 +80,22 @@ export function FilterPosts({
           ))}
         </SelectContent>
       </Select>
-
-      {/* Authors */}
       <Select
-        value={selectedAuthor || 'all'}
-        onValueChange={(value) => handleFilterChange('author', value)}
+        value={selectedTag || 'all'}
+        onValueChange={(value) => handleFilterChange('tag', value)}
       >
-        <SelectTrigger className='w-full cursor-pointer' disabled={!hasAuthors}>
-          {hasAuthors ? (
-            <SelectValue placeholder='All Authors' />
-          ) : (
-            'No authors found'
-          )}
+        <SelectTrigger className='w-full cursor-pointer' disabled={!hasTags}>
+          {hasTags ? <SelectValue placeholder='All Tags' /> : 'No tags found'}
         </SelectTrigger>
         <SelectContent>
-          <SelectItem value='all'>All Authors</SelectItem>
-          {authors.map((author) => (
-            <SelectItem
-              className='cursor-pointer'
-              key={author.id}
-              value={author.id.toString()}
-            >
-              {author.name}
+          <SelectItem value='all'>Semua Tag</SelectItem>
+          {tags.map((tag) => (
+            <SelectItem key={tag.id} value={tag.id.toString()}>
+              {tag.name}
             </SelectItem>
           ))}
         </SelectContent>
       </Select>
-
       <Button
         variant='outline'
         className='cursor-pointer'
@@ -137,6 +103,6 @@ export function FilterPosts({
       >
         Reset Filters
       </Button>
-    </div>
+    </>
   );
 }

@@ -1,5 +1,5 @@
+import axios from 'axios';
 import { useQuery } from '@tanstack/react-query';
-import { axiosInstance } from '@/lib/axios';
 import { Author, Category, Tag } from '@/types';
 
 export const useFetchPostFilters = () => {
@@ -14,9 +14,9 @@ export const useFetchPostFilters = () => {
     queryKey: ['post-filters'],
     queryFn: async () => {
       const [authors, tags, categories] = await Promise.all([
-        axiosInstance.get('/wp-json/wp/v2/users'),
-        axiosInstance.get('/wp-json/wp/v2/tags'),
-        axiosInstance.get('/wp-json/wp/v2/categories'),
+        axios.get('https://tubesettlerlamella.com/wp-json/wp/v2/users'),
+        axios.get('https://tubesettlerlamella.com/wp-json/wp/v2/tags'),
+        axios.get('https://tubesettlerlamella.com/wp-json/wp/v2/categories'),
       ]);
 
       return {

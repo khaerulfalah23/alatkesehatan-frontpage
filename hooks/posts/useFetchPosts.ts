@@ -1,5 +1,5 @@
+import axios from 'axios';
 import { useQuery } from '@tanstack/react-query';
-import { axiosInstance } from '@/lib/axios';
 import type { PostList } from '@/types';
 
 interface FetchPostsParams {
@@ -29,17 +29,20 @@ export const useFetchPosts = ({
     queryKey: ['posts', { search, category, tag, author, page, perPage }],
 
     queryFn: async (): Promise<PostsResponse> => {
-      const res = await axiosInstance.get<PostList[]>('/wp-json/wp/v2/posts', {
-        params: {
-          page,
-          per_page: perPage,
-          search: search || undefined,
-          categories: category || undefined,
-          tags: tag || undefined,
-          author: author || undefined,
-          _embed: true,
-        },
-      });
+      const res = await axios.get<PostList[]>(
+        'https://tubesettlerlamella.com/wp-json/wp/v2/posts',
+        {
+          params: {
+            page,
+            per_page: perPage,
+            search: search || undefined,
+            categories: category || undefined,
+            tags: tag || undefined,
+            author: author || undefined,
+            _embed: true,
+          },
+        }
+      );
 
       return {
         posts: res.data,

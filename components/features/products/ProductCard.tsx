@@ -5,7 +5,7 @@ import { Product } from './types';
 import { ProductButton } from './ProductButton';
 import ProductPrice from './ProductPrice';
 
-export default function ProductCard({ product }: { product: Product }) {
+export function ProductCard({ product }: { product: Product }) {
   return (
     <div className='border border-gray-300 rounded-lg overflow-hidden group text-sm'>
       <div className='border-b border-b-gray-300 overflow-hidden relative'>

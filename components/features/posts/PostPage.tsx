@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { Loader2 } from 'lucide-react';
 import { useSearchParams, usePathname } from 'next/navigation';
 
@@ -65,7 +66,7 @@ export default function PostPage() {
 
         {/* SEARCH + FILTER */}
         <div>
-          <SearchInput defaultValue={search} />
+          <SearchInput defaultValue={search} placeholder='Cari artikel...' />
           {filters && (
             <FilterPosts
               authors={filters.authors}
@@ -114,7 +115,9 @@ export default function PostPage() {
               <PaginationContent>
                 {page > 1 && (
                   <PaginationItem>
-                    <PaginationPrevious href={createPaginationUrl(page - 1)} />
+                    <Link href={createPaginationUrl(page - 1)}>
+                      <PaginationPrevious />
+                    </Link>
                   </PaginationItem>
                 )}
 
@@ -133,12 +136,11 @@ export default function PostPage() {
                       <div key={pageNum} className='flex items-center'>
                         {showEllipsis && <span className='px-2'>...</span>}
                         <PaginationItem>
-                          <PaginationLink
-                            href={createPaginationUrl(pageNum)}
-                            isActive={pageNum === page}
-                          >
-                            {pageNum}
-                          </PaginationLink>
+                          <Link href={createPaginationUrl(pageNum)}>
+                            <PaginationLink isActive={pageNum === page}>
+                              {pageNum}
+                            </PaginationLink>
+                          </Link>
                         </PaginationItem>
                       </div>
                     );
@@ -146,7 +148,9 @@ export default function PostPage() {
 
                 {page < data.totalPages && (
                   <PaginationItem>
-                    <PaginationNext href={createPaginationUrl(page + 1)} />
+                    <Link href={createPaginationUrl(page + 1)}>
+                      <PaginationNext />
+                    </Link>
                   </PaginationItem>
                 )}
               </PaginationContent>
