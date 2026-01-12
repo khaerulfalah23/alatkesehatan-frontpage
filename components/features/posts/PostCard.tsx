@@ -33,7 +33,7 @@ export function PostCard({ post }: { post: PostList }) {
               height={200}
             />
           ) : (
-            <div className='flex items-center justify-center w-full h-full text-muted-foreground'>
+            <div className='flex items-center justify-center w-full h-full'>
               No image available
             </div>
           )}

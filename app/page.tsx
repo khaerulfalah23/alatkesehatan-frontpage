@@ -5,18 +5,18 @@ import { HeroBanner } from '@/components/hero-banner/HeroBanner';
 import { WhyChooseUs } from '@/components/WhyChooseUs';
 import { ConsultationBanner } from '@/components/consultation-banner/ConsultationBanner';
 import { PostList } from '@/components/features/posts/PostList';
+import { TestimonialCarousel } from '@/components/Testimonial/TestimonialCarousel';
 
 export default function Home() {
   return (
-    <>
-      <Container>
-        <HeroBanner />
-        <Customers />
-        <WhyChooseUs />
-        <ProductList />
-        <ConsultationBanner />
-        <PostList />
-      </Container>
-    </>
+    <Container>
+      <HeroBanner />
+      <Customers />
+      <WhyChooseUs />
+      <TestimonialCarousel />
+      <ProductList />
+      <ConsultationBanner />
+      <PostList />
+    </Container>
   );
 }

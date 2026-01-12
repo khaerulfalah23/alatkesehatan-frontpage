@@ -2,7 +2,7 @@ import { twMerge } from 'tailwind-merge';
 import type { ProductPrice } from './types';
 import PriceFormatter from './PriceFormatter';
 
-export default function ProductPrice({
+export function ProductPrice({
   price,
   discount,
   label,

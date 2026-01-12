@@ -3,7 +3,7 @@ import Image from 'next/image';
 import { Star } from 'lucide-react';
 import { Product } from './types';
 import { ProductButton } from './ProductButton';
-import ProductPrice from './ProductPrice';
+import { ProductPrice } from './ProductPrice';
 
 export function ProductCard({ product }: { product: Product }) {
   return (
@@ -11,7 +11,10 @@ export function ProductCard({ product }: { product: Product }) {
       <div className='border-b border-b-gray-300 overflow-hidden relative'>
         <Link href={`/product/${product.slug}`}>
           <Image
-            src={product.images[0]?.src || '/placeholder.png'}
+            src={
+              product.images[0]?.src ||
+              'https://dummyimage.com/500x500/cccccc/000000&text=No+Image'
+            }
             alt={product.images[0]?.alt || product.name}
             width={500}
             height={500}
