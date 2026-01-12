@@ -1,7 +1,12 @@
 'use client';
 
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useState } from 'react';
+
+import {
+  QueryClient,
+  QueryClientProvider,
+  QueryObserverOptions,
+} from '@tanstack/react-query';
 
 export const ReactQueryClientProvider = ({
   children,
@@ -14,7 +19,8 @@ export const ReactQueryClientProvider = ({
         defaultOptions: {
           queries: {
             refetchOnWindowFocus: false,
-          },
+            suspense: true,
+          } as QueryObserverOptions,
         },
       })
   );

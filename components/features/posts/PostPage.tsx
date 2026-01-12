@@ -1,7 +1,6 @@
 'use client';
 
 import Link from 'next/link';
-import { Loader2 } from 'lucide-react';
 import { useSearchParams, usePathname } from 'next/navigation';
 
 import {
@@ -21,7 +20,7 @@ import { useFetchPosts } from '@/hooks/posts/useFetchPosts';
 import { useFetchPostFilters } from '@/hooks/posts/useFetchPostFilters';
 import { FilterPosts } from '@/components/features/posts/Filter';
 
-export default function PostPage() {
+export function PostPage() {
   const searchParams = useSearchParams();
   const pathname = usePathname();
 
@@ -32,7 +31,7 @@ export default function PostPage() {
   const pageParam = searchParams.get('page');
   const page = pageParam ? Number(pageParam) : 1;
 
-  const { data, isPending, isError } = useFetchPosts({
+  const { data } = useFetchPosts({
     search,
     category,
     tag,
@@ -59,9 +58,7 @@ export default function PostPage() {
       <div className='space-y-8'>
         <Prose className='text-center'>
           <h2>Artikel Kesehatan</h2>
-          <p className='text-muted-foreground'>
-            {isPending ? 'Memuat artikel...' : `${data?.total ?? 0} Artikel`}
-          </p>
+          <p className='text-muted-foreground'>{data?.total ?? 0} Artikel</p>
         </Prose>
 
         {/* SEARCH + FILTER */}
@@ -79,33 +76,17 @@ export default function PostPage() {
           )}
         </div>
 
-        {/* LOADING */}
-        {isPending && (
-          <div className='h-24 w-full border rounded-lg bg-accent/25 flex items-center justify-center'>
-            <Loader2 className='h-6 w-6 animate-spin text-muted-foreground' />
-          </div>
-        )}
-
-        {/* ERROR */}
-        {!isPending && isError && (
-          <div className='h-24 w-full border rounded-lg bg-destructive/10 flex items-center justify-center'>
-            <p className='text-sm text-destructive'>Gagal memuat artikel</p>
-          </div>
-        )}
-
         {/* POSTS */}
-        {!isPending && data?.posts?.length ? (
+        {data?.posts?.length ? (
           <div className='grid md:grid-cols-3 gap-4'>
             {data.posts.map((post) => (
               <PostCard key={post.id} post={post} />
             ))}
           </div>
         ) : (
-          !isPending && (
-            <div className='h-24 w-full border rounded-lg bg-accent/25 flex items-center justify-center'>
-              <p className='text-sm text-muted-foreground'>No posts found</p>
-            </div>
-          )
+          <div className='h-24 w-full border rounded-lg bg-accent/25 flex items-center justify-center'>
+            <p className='text-sm text-muted-foreground'>Tidak ada artikel</p>
+          </div>
         )}
 
         {/* PAGINATION */}

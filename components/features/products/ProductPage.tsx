@@ -35,7 +35,7 @@ export function ProductPage() {
   const pageParam = searchParams.get('page');
   const page = pageParam ? Number(pageParam) : 1;
 
-  const { data, isPending } = useFetchProducts({
+  const { data } = useFetchProducts({
     search,
     category,
     tag,
@@ -84,20 +84,14 @@ export function ProductPage() {
 
         <div className='min-h-[70vh] w-full flex-1'>
           <div className='mb-4 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3'>
-            {isPending ? (
-              <div className='h-24 w-full border rounded-lg bg-accent/25 flex items-center justify-center'>
-                <p className='text-sm text-muted-foreground'>
-                  Loading products...
-                </p>
-              </div>
-            ) : data && data?.products?.length ? (
+            {data && data.products.length ? (
               data.products.map((product) => (
                 <ProductCard key={product.id} product={product} />
               ))
             ) : (
               <div className='h-24 w-full border rounded-lg bg-accent/25 flex items-center justify-center'>
                 <p className='text-sm text-muted-foreground'>
-                  Product is empty
+                  Tidak ada produk
                 </p>
               </div>
             )}
