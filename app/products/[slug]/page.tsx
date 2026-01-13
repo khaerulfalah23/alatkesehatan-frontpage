@@ -36,24 +36,26 @@ export async function generateMetadata({
 
   if (!product) return {};
 
+  const yoast = product.yoast_head_json;
+
   let ogImage: string | undefined;
 
   if (product.images?.length > 0) {
     ogImage = product.images[0].src;
   }
 
-  const title = product.name;
-  const description = stripHtml(
-    product.short_description || product.description || ''
-  );
+  // const title = product.name;
+  // const description = stripHtml(
+  //   product.short_description || product.description || ''
+  // );
 
   return {
-    title,
-    description,
+    title: yoast?.title || product.name,
+    description: yoast?.description || product.short_description || '',
     openGraph: {
       type: 'website',
-      title,
-      description,
+      title: yoast?.title || product.name,
+      description: yoast?.description || product.short_description || '',
       url: `${siteConfig.site_domain}/products/${product.slug}`,
       images: ogImage
         ? [
@@ -61,17 +63,41 @@ export async function generateMetadata({
               url: ogImage,
               width: 1200,
               height: 630,
-              alt: title,
+              alt: yoast?.title || product.name,
             },
           ]
         : [],
     },
     twitter: {
       card: 'summary_large_image',
-      title,
-      description,
+      title: yoast?.title || product.name,
+      description: yoast?.description || product.short_description || '',
       images: ogImage ? [ogImage] : [],
     },
+    // title,
+    // description,
+    // openGraph: {
+    //   type: 'website',
+    //   title,
+    //   description,
+    //   url: `${siteConfig.site_domain}/products/${product.slug}`,
+    //   images: ogImage
+    //     ? [
+    //         {
+    //           url: ogImage,
+    //           width: 1200,
+    //           height: 630,
+    //           alt: title,
+    //         },
+    //       ]
+    //     : [],
+    // },
+    // twitter: {
+    //   card: 'summary_large_image',
+    //   title,
+    //   description,
+    //   images: ogImage ? [ogImage] : [],
+    // },
   };
 }
 
