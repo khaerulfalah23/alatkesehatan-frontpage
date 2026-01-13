@@ -1,12 +1,12 @@
 import { Metadata } from 'next';
+import { notFound } from 'next/navigation';
+
+import { siteConfig } from '@/types';
 
 import { Container } from '@/components/common/Craft';
 import { ProductGallery } from '@/components/features/products/ProductGallery';
 import { ProductInfo } from '@/components/features/products/ProductInfo';
 import { ProductTabs } from '@/components/features/products/ProductTabs';
-import { notFound } from 'next/navigation';
-import { stripHtml } from '@/lib/metadata';
-import { siteConfig } from '@/types';
 
 async function getProductBySlug(slug: string) {
   const res = await fetch(
@@ -44,11 +44,6 @@ export async function generateMetadata({
     ogImage = product.images[0].src;
   }
 
-  // const title = product.name;
-  // const description = stripHtml(
-  //   product.short_description || product.description || ''
-  // );
-
   return {
     title: yoast?.title || product.name,
     description: yoast?.description || product.short_description || '',
@@ -74,30 +69,6 @@ export async function generateMetadata({
       description: yoast?.description || product.short_description || '',
       images: ogImage ? [ogImage] : [],
     },
-    // title,
-    // description,
-    // openGraph: {
-    //   type: 'website',
-    //   title,
-    //   description,
-    //   url: `${siteConfig.site_domain}/products/${product.slug}`,
-    //   images: ogImage
-    //     ? [
-    //         {
-    //           url: ogImage,
-    //           width: 1200,
-    //           height: 630,
-    //           alt: title,
-    //         },
-    //       ]
-    //     : [],
-    // },
-    // twitter: {
-    //   card: 'summary_large_image',
-    //   title,
-    //   description,
-    //   images: ogImage ? [ogImage] : [],
-    // },
   };
 }
 
