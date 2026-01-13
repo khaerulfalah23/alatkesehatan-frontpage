@@ -46,7 +46,7 @@ export function ProductGallery({ images, productName }: ProductGalleryProps) {
           <button
             key={index}
             onClick={() => setSelectedImage(index)}
-            className={`shrink-0 w-16 h-16 rounded-lg border-2 overflow-hidden transition-all ${
+            className={`cursor-pointer shrink-0 w-16 h-16 rounded-lg border-2 overflow-hidden transition-all ${
               selectedImage === index
                 ? 'border-primary'
                 : 'border-border hover:border-muted-foreground'

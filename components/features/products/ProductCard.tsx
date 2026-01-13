@@ -9,7 +9,7 @@ export function ProductCard({ product }: { product: Product }) {
   return (
     <div className='border border-gray-300 rounded-lg overflow-hidden group text-sm'>
       <div className='border-b border-b-gray-300 overflow-hidden relative'>
-        <Link href={`/product/${product.slug}`}>
+        <Link href={`/products/${product.slug}`}>
           <Image
             src={
               product.images[0]?.src ||
@@ -36,19 +36,16 @@ export function ProductCard({ product }: { product: Product }) {
             {(product.categories || [{}])[0]?.name}
           </p>
           <div className='text-lightText flex items-center gap-1'>
-            {Array.from({ length: 5 }).map((_, index) => {
-              const isLastStar = index === 4;
-              return (
-                <Star
-                  size={15}
-                  fill={!isLastStar ? '#fca99b' : 'transparent'}
-                  key={index}
-                  className={`${
-                    isLastStar ? 'text-gray-500' : 'text-lightOrange'
-                  }`}
-                />
-              );
-            })}
+            {[...Array(5)].map((_, i) => (
+              <Star
+                key={i}
+                className={`w-4 h-4 ${
+                  i < product.rating_count
+                    ? 'fill-yellow-400 text-yellow-400'
+                    : 'text-border'
+                }`}
+              />
+            ))}
           </div>
         </div>
         <p className='text-base tracking-wide font-semibold line-clamp-1 capitalize'>

@@ -16,7 +16,6 @@ interface ProductInfoProps {
   price: number;
   model: string;
   weight: string;
-  location: string;
   reviewCount: number;
   rating: number;
 }
@@ -26,7 +25,6 @@ export function ProductInfo({
   price,
   model,
   weight,
-  location,
   reviewCount,
   rating,
 }: ProductInfoProps) {
@@ -49,7 +47,6 @@ export function ProductInfo({
         <div className='text-sm md:text-base text-muted-foreground space-y-0.5'>
           <p>Model: {model}</p>
           <p>Berat: {weight}</p>
-          <p>Lokasi Pengiriman: {location}</p>
         </div>
       </div>
 
@@ -95,7 +92,7 @@ export function ProductInfo({
       </div>
 
       {/* Rating and Reviews */}
-      <div className='flex flex-col md:flex-row md:items-center gap-2 text-sm md:text-base text-muted-foreground'>
+      <div className='flex flex-col md:flex-row md:items-center gap-2 text-sm md:text-base'>
         <div className='flex items-center gap-1'>
           {[...Array(5)].map((_, i) => (
             <Star

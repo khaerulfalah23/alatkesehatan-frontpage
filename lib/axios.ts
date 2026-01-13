@@ -1,5 +1,5 @@
 import axios from 'axios';
 
 export const axiosInstance = axios.create({
-  baseURL: 'https://strainernozzle.com',
+  baseURL: process.env.NEXT_PUBLIC_WORDPRESS_URL,
 });

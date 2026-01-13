@@ -35,28 +35,25 @@ export const useFetchProducts = ({
       { page, perPage, search, category, tag, minPrice, maxPrice },
     ],
     queryFn: async (): Promise<ProductsResponse> => {
-      const res = await axiosInstance.get<Product[]>(
-        '/wp-json/wc/v3/products',
-        {
-          headers: {
-            Authorization:
-              'Basic ' +
-              btoa(
-                'ck_6fb76d7f0fed307967f5f776399d036a96b0c2d7:cs_cfdde3ceb6b3bdfe040a4411eeec22dfc8c9036e'
-              ),
-          },
-          params: {
-            search: search || undefined,
-            category: category || undefined,
-            tag: tag || undefined,
-            min_price: minPrice || undefined,
-            max_price: maxPrice || undefined,
-            page,
-            per_page: perPage,
-            _embed: true,
-          },
-        }
-      );
+      const res = await axiosInstance.get<Product[]>('/wc/v3/products', {
+        headers: {
+          Authorization:
+            'Basic ' +
+            btoa(
+              'ck_6fb76d7f0fed307967f5f776399d036a96b0c2d7:cs_cfdde3ceb6b3bdfe040a4411eeec22dfc8c9036e'
+            ),
+        },
+        params: {
+          search: search || undefined,
+          category: category || undefined,
+          tag: tag || undefined,
+          min_price: minPrice || undefined,
+          max_price: maxPrice || undefined,
+          page,
+          per_page: perPage,
+          _embed: true,
+        },
+      });
       return {
         products: res.data,
         total: Number(res.headers['x-wp-total'] ?? 0),

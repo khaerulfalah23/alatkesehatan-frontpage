@@ -31,7 +31,7 @@ export const useFetchProductFilters = () => {
     queryKey: ['product-filters'],
     queryFn: async () => {
       const [categories, tags] = await Promise.all([
-        axiosInstance.get('/wp-json/wc/v3/products/categories', {
+        axiosInstance.get('/wc/v3/products/categories', {
           headers: {
             Authorization:
               'Basic ' +
@@ -40,7 +40,7 @@ export const useFetchProductFilters = () => {
               ),
           },
         }),
-        axiosInstance.get('/wp-json/wc/v3/products/tags', {
+        axiosInstance.get('/wc/v3/products/tags', {
           headers: {
             Authorization:
               'Basic ' +

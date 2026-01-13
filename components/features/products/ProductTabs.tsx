@@ -4,14 +4,12 @@ import { useState } from 'react';
 
 interface ProductTabsProps {
   description: string;
-  features: string[];
   registrationNumber: string;
   tags: string[];
 }
 
 export function ProductTabs({
   description,
-  features,
   registrationNumber,
   tags,
 }: ProductTabsProps) {
@@ -20,7 +18,6 @@ export function ProductTabs({
   const tabs = [
     { id: 'description', label: 'Deskripsi Produk' },
     { id: 'reviews', label: 'Ulasan' },
-    { id: 'faq', label: 'Pertanyaan Umum' },
   ];
 
   return (
@@ -46,17 +43,13 @@ export function ProductTabs({
       <div className='min-h-[200px]'>
         {activeTab === 'description' && (
           <div className='space-y-6'>
-            <p className='text-foreground leading-relaxed'>{description}</p>
+            {/* Deskripsi Produk */}
+            <div
+              className='text-foreground leading-relaxed product-description'
+              dangerouslySetInnerHTML={{ __html: description }}
+            />
 
-            <div className='space-y-3'>
-              <h3 className='font-semibold text-foreground'>Fitur Produk:</h3>
-              <ul className='list-disc list-inside space-y-1 text-foreground'>
-                {features.map((feature, index) => (
-                  <li key={index}>{feature}</li>
-                ))}
-              </ul>
-            </div>
-
+            {/* Nomor Registrasi */}
             <div className='space-y-2'>
               <h3 className='font-semibold text-foreground'>
                 Nomor Registrasi / Izin Edar Alkes
@@ -64,6 +57,7 @@ export function ProductTabs({
               <p className='text-muted-foreground'>{registrationNumber}</p>
             </div>
 
+            {/* Tags */}
             <div className='flex flex-wrap gap-2'>
               {tags.map((tag, index) => (
                 <span
@@ -83,27 +77,6 @@ export function ProductTabs({
             <button className='text-primary hover:underline mt-2'>
               Jadilah yang pertama memberikan ulasan
             </button>
-          </div>
-        )}
-
-        {activeTab === 'faq' && (
-          <div className='space-y-4'>
-            <div className='border border-border rounded-lg p-4'>
-              <h4 className='font-medium text-foreground'>
-                Apakah produk ini memiliki garansi?
-              </h4>
-              <p className='text-muted-foreground mt-2'>
-                Ya, produk ini memiliki garansi resmi dari distributor.
-              </p>
-            </div>
-            <div className='border border-border rounded-lg p-4'>
-              <h4 className='font-medium text-foreground'>
-                Berapa lama waktu pengiriman?
-              </h4>
-              <p className='text-muted-foreground mt-2'>
-                Waktu pengiriman tergantung lokasi, umumnya 2-5 hari kerja.
-              </p>
-            </div>
           </div>
         )}
       </div>
