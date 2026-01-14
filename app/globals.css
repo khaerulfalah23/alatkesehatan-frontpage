@@ -218,3 +218,10 @@
   height: auto;
   margin: 1rem auto;
 }
+
+.product-description .wp-video,
+.product-description .wp-video-shortcode {
+  width: 100% !important;
+  height: auto !important;
+  border-radius: 10px;
+}

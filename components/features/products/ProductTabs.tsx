@@ -40,7 +40,7 @@ export function ProductTabs({
       </div>
 
       {/* Tab Content */}
-      <div className='min-h-[200px]'>
+      <div className='min-h-50'>
         {activeTab === 'description' && (
           <div className='space-y-6'>
             {/* Deskripsi Produk */}

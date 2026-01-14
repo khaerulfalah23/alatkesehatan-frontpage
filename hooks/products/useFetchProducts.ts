@@ -40,7 +40,7 @@ export const useFetchProducts = ({
           Authorization:
             'Basic ' +
             btoa(
-              'ck_6fb76d7f0fed307967f5f776399d036a96b0c2d7:cs_cfdde3ceb6b3bdfe040a4411eeec22dfc8c9036e'
+              `${process.env.NEXT_PUBLIC_CONSUMER_KER}:${process.env.NEXT_PUBLIC_CONSUMER_SECRET}`
             ),
         },
         params: {
