@@ -33,7 +33,12 @@ export function ProductCard({ product }: { product: Product }) {
       <div className='p-5 flex flex-col gap-2'>
         <div className='flex items-center justify-between'>
           <p className='text-muted-foreground font-medium'>
-            {(product.categories || [{}])[0]?.name}
+            {(() => {
+              const category = (product.categories || [{}])[0]?.name || '';
+              return category.length > 15
+                ? category.slice(0, 15) + '...'
+                : category;
+            })()}
           </p>
           <div className='text-lightText flex items-center gap-1'>
             {[...Array(5)].map((_, i) => (

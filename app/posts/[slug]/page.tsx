@@ -3,7 +3,6 @@ import {
   getFeaturedMediaById,
   getAuthorById,
   getCategoryById,
-  getAllPostSlugs,
 } from '@/lib/wordpress';
 import { stripHtml } from '@/lib/metadata';
 import Image from 'next/image';
@@ -19,8 +18,15 @@ import { Button } from '@/components/ui/button';
 import { ArrowLeft } from 'lucide-react';
 import { siteConfig } from '@/types';
 
-export async function generateStaticParams() {
-  return await getAllPostSlugs();
+async function getPostBySlugs(slug: string) {
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_WORDPRESS_URL}/wp/v2/posts?slug=${slug}`,
+    {
+      next: { revalidate: 60 },
+    }
+  );
+  const post = await res.json();
+  return post.length > 0 ? post[0] : null;
 }
 
 export async function generateMetadata({
@@ -81,7 +87,7 @@ export default async function Page({
   params: Promise<{ slug: string }> | { slug: string };
 }) {
   const resolved = await params;
-  const post = await getPostBySlug(resolved.slug);
+  const post = await getPostBySlugs(resolved.slug);
 
   if (!post) {
     notFound();

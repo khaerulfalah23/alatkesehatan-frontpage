@@ -3,13 +3,13 @@ import { Product } from './types';
 
 async function getProducts(): Promise<Product[]> {
   const res = await fetch(
-    'https://strainernozzle.com/wp-json/wc/v3/products?per_page=4&orderby=date&order=desc',
+    `${process.env.NEXT_PUBLIC_WORDPRESS_URL}/wc/v3/products?per_page=4&orderby=date&order=desc`,
     {
       headers: {
         Authorization:
           'Basic ' +
           btoa(
-            'ck_6fb76d7f0fed307967f5f776399d036a96b0c2d7:cs_cfdde3ceb6b3bdfe040a4411eeec22dfc8c9036e'
+            `${process.env.NEXT_PUBLIC_CONSUMER_KER}:${process.env.NEXT_PUBLIC_CONSUMER_SECRET}`
           ),
       },
       next: { revalidate: 60 },

@@ -5,7 +5,7 @@ import { Post } from './types';
 
 async function getPosts(): Promise<Post[]> {
   const res = await fetch(
-    'https://strainernozzle.com/wp-json/wp/v2/posts?per_page=4&orderby=date&order=desc',
+    `${process.env.NEXT_PUBLIC_WORDPRESS_URL}/wp/v2/posts?per_page=4&orderby=date&order=desc`,
     {
       next: { revalidate: 60 },
     }
