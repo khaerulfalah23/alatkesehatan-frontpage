@@ -1,4 +1,5 @@
 import './globals.css';
+import Script from 'next/script';
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import { Navbar } from '@/components/common/navbar/Navbar';
@@ -28,6 +29,26 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='en' suppressHydrationWarning>
+      <head>
+        <Script
+          id='website-schema'
+          type='application/ld+json'
+          strategy='afterInteractive'
+        >
+          {JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'WebSite',
+            name: 'Alat Kesehatan',
+            url: 'https://alatkesehatan-frontpage.vercel.app',
+            potentialAction: {
+              '@type': 'SearchAction',
+              target:
+                'https://alatkesehatan-frontpage.vercel.app/?s={search_term_string}',
+              'query-input': 'required name=search_term_string',
+            },
+          })}
+        </Script>
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
