@@ -48,6 +48,26 @@ export default function RootLayout({
             },
           })}
         </Script>
+        <Script
+          id='organization-schema'
+          type='application/ld+json'
+          strategy='afterInteractive'
+        >
+          {JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'Organization',
+            name: 'PT Hefram Asasta Indonesia',
+            url: 'http://hefram.com',
+            logo: 'https://hefram.com/wp-content/uploads/al_opt_content/IMAGE/hefram.com/wp-content/uploads/2025/02/Logo-Hefram-1024x1024.png.bv_resized_desktop.png.bv.webp?bv_host=hefram.com',
+            contactPoint: {
+              '@type': 'ContactPoint',
+              telephone: '+6281335353290',
+              contactType: 'customer service',
+              areaServed: 'ID',
+              availableLanguage: ['Indonesian', 'English'],
+            },
+          })}
+        </Script>
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
